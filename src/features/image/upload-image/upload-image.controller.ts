@@ -1,4 +1,11 @@
-import { Controller, Post, UseInterceptors, UploadedFile, Res, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  UseInterceptors,
+  UploadedFile,
+  Res,
+  HttpStatus,
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadImageHandler } from './upload-image.service';
 import { Response } from 'express';
@@ -9,16 +16,14 @@ export class UploadImageController {
 
   @Post('upload-image')
   @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(@UploadedFile() file, @Res() res: Response) {
+  async handle(@UploadedFile() file, @Res() res: Response) {
     try {
-      const result: any = await this.uploadImageHandler.handler(file);
-      if (result.success) {
-        return res.status(HttpStatus.CREATED).json(result);
-      } else {
-        return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(result);
-      }
+      const result: any = await this.uploadImageHandler.handle(file);
+      return res.status(HttpStatus.CREATED).json(result);
     } catch (err) {
-      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ success: false, error: err.message });
+      return res
+        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .json({ success: false, error: err.message });
     }
   }
 }

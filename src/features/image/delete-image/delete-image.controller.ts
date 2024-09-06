@@ -5,19 +5,20 @@ import { Response } from 'express';
 @Controller('image')
 export class DeleteImageController {
   constructor(private readonly deleteImageHandler: DeleteImageHandler) {}
- 
+
   @Delete('delete-image')
-  async deleteImage(@Res() res: Response, @Body() { publicUrl }: { publicUrl: string }) {
-    console.log("publicUrl:", publicUrl);
+  async handle(
+    @Res() res: Response,
+    @Body() { publicUrl }: { publicUrl: string },
+  ) {
+    console.log('publicUrl:', publicUrl);
     try {
       const result = await this.deleteImageHandler.handler(publicUrl);
-      if (result.success) {
-        return res.status(HttpStatus.OK).json(result);
-      } else {
-        return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(result);
-      }
+      return res.status(HttpStatus.OK).json(result);
     } catch (err) {
-      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ success: false, error: err.message });
+      return res
+        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .json({ success: false, error: err.message });
     }
   }
 }

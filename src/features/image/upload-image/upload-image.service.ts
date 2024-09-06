@@ -1,16 +1,19 @@
 import { FirebaseService } from 'src/infrastructure/firebase/firebase.service';
-import {Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import * as admin from 'firebase-admin';
-
 
 @Injectable()
 export class UploadImageHandler {
   constructor(private firebaseService: FirebaseService) {}
-  async handler(file): Promise<{ success: boolean; url?: string; error?: string }> { //handle
+  async handle(
+    file,
+  ): Promise<{ success: boolean; url?: string; error?: string }> {
     if (!file) {
       throw new InternalServerErrorException('No file uploaded');
     }
-    const bucket = admin.storage().bucket(this.firebaseService.getFirebaseConfig().storageBucket);
+    const bucket = admin
+      .storage()
+      .bucket(this.firebaseService.getFirebaseConfig().storageBucket);
     const fileName = `${Date.now()}-${file.originalname}`;
     const fileUpload = bucket.file(fileName);
 
@@ -33,8 +36,7 @@ export class UploadImageHandler {
           console.log('File uploaded successfully:', publicUrl);
           resolve({ success: true, url: publicUrl });
         } catch (err) {
-          console.error('Error making file public:', err);
-          reject({ success: false, error: err.message });
+          throw err;
         }
       });
 
