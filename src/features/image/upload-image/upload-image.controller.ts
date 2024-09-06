@@ -13,7 +13,7 @@ export class UploadImageController {
     try {
       const result: any = await this.uploadImageHandler.handler(file);
       if (result.success) {
-        return res.status(HttpStatus.OK).json(result);
+        return res.status(HttpStatus.CREATED).json(result);
       } else {
         return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(result);
       }

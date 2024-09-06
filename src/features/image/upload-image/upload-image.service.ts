@@ -29,7 +29,7 @@ export class UploadImageHandler {
       stream.on('finish', async () => {
         try {
           await fileUpload.makePublic();
-          const publicUrl = `https://storage.googleapis.com/${bucket.name}/${fileUpload.name}?timestamp=${Date.now()}`;
+          const publicUrl = `${process.env.PUBLIC_URL}${bucket.name}/${fileUpload.name}?timestamp=${Date.now()}`;
           console.log('File uploaded successfully:', publicUrl);
           resolve({ success: true, url: publicUrl });
         } catch (err) {
