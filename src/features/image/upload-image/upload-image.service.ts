@@ -1,12 +1,12 @@
-import { FirebaseService } from './../infrastructure/firebase/firebase.service';
+import { FirebaseService } from 'src/infrastructure/firebase/firebase.service';
 import {Injectable, InternalServerErrorException } from '@nestjs/common';
 import * as admin from 'firebase-admin';
 
 
 @Injectable()
-export class ImageUploadService {
-  constructor(private firebaseService:FirebaseService) {}
-  async uploadFile(file): Promise<{ success: boolean; url?: string; error?: string }> {
+export class UploadImageHandler {
+  constructor(private firebaseService: FirebaseService) {}
+  async handler(file): Promise<{ success: boolean; url?: string; error?: string }> { //handle
     if (!file) {
       throw new InternalServerErrorException('No file uploaded');
     }
@@ -40,21 +40,5 @@ export class ImageUploadService {
 
       stream.end(file.buffer);
     });
-  }
-  async deleteImage(publicUrl: string): Promise<{ success: boolean; message?: string; error?: string }> {
-    try {
-      const bucket = admin
-        .storage()
-        .bucket(this.firebaseService.getFirebaseConfig().storageBucket);
-      const fileName = publicUrl.split('/').pop()!.split('?')[0]; // Extract filename from public URL
-      const file = bucket.file(fileName);
-
-      await file.delete();
-
-      return { success: true, message: 'Image deleted successfully' };
-    } catch (err) {
-      console.error('Error deleting image:', err);
-      return { success: false, error: err.message };
-    }
   }
 }
