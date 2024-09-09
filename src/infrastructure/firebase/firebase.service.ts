@@ -1,6 +1,6 @@
 import { initializeApp, FirebaseApp } from 'firebase/app';
 import { FirebaseConfig } from './firebase.interface';
-import { firebaseConfig } from './firebaseConfig';
+import { firebaseConfig } from './firebase-config';
 import { getStorage } from 'firebase/storage';
 import { Injectable } from '@nestjs/common';
 import * as dotenv from 'dotenv';

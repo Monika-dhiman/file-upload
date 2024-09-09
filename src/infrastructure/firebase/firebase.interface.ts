@@ -6,5 +6,4 @@ export interface FirebaseConfig {
   messagingSenderId: string;
   appId: string;
   type: string;
-  private_key?: string;
 }

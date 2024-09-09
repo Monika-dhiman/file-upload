@@ -1,27 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import * as admin from 'firebase-admin';
-import { FirebaseService } from 'src/infrastructure/firebase/firebase.service';
+import { FirebaseDeleteFileHandler } from 'src/firebase/delete-file/delete-file.service';
 
 @Injectable()
 export class DeleteImageHandler {
-  //ImageUploadHandler
-  constructor(private firebaseService: FirebaseService) {}
+  constructor(private firebaseDeleteFile: FirebaseDeleteFileHandler) {}
   async handler(
     publicUrl: string,
   ): Promise<{ success: boolean; message?: string; error?: string }> {
-    try {
-      const bucket = admin
-        .storage()
-        .bucket(this.firebaseService.getFirebaseConfig().storageBucket);
-      const fileName = publicUrl.split('/').pop()!.split('?')[0]; 
-      const file = bucket.file(fileName);
-
-      await file.delete();
-
-      return { success: true, message: 'Image deleted successfully' };
-    } catch (err) {
-      console.error('Error deleting image:', err);
-      throw err;
-    }
+    return this.firebaseDeleteFile.handle(publicUrl);
   }
 }

@@ -2,7 +2,7 @@
 /dist
 /node_modules
 /build
-/src/infrastructure/temp
+temp
 # Logs
 logs
 *.log

@@ -1,4 +1,8 @@
 {
+  "preset" : "ts-jest",
+  "transformIgnorePatterns": [
+    "/node_modules/(?!some-module-to-transform).+\\.js$"
+  ],
   "moduleFileExtensions": ["js", "json", "ts"],
   "rootDir": ".",
   "testEnvironment": "node",
