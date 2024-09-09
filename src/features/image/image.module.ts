@@ -5,9 +5,9 @@ import { UploadImageController } from './upload-image/upload-image.controller';
 import { DeleteImageController } from './delete-image/delete-image.controller';
 import { UploadImageHandler } from './upload-image/upload-image.service';
 import { DeleteImageHandler } from './delete-image/delete-image.service';
-import { FirebaseModule } from 'src/firebase/firebase.module';
-import { FirebaseUploadFileHandler } from 'src/firebase/upload-file/upload-file.service';
-import { FirebaseDeleteFileHandler } from 'src/firebase/delete-file/delete-file.service';
+import { FirebaseModule } from 'src/features/firebase/firebase.module';
+import { FirebaseUploadFileHandler } from 'src/features/firebase/upload-file/upload-file.service';
+import { FirebaseDeleteFileHandler } from 'src/features/firebase/delete-file/delete-file.service';
 // import { diskStorage } from 'multer';
 
 @Module({

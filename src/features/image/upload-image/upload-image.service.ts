@@ -1,5 +1,5 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { FirebaseUploadFileHandler } from 'src/firebase/upload-file/upload-file.service';
+import { FirebaseUploadFileHandler } from 'src/features/firebase/upload-file/upload-file.service';
 
 @Injectable()
 export class UploadImageHandler {

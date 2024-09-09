@@ -4,7 +4,7 @@ import { ImageModule } from './features/image/image.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Module } from '@nestjs/common';
-import { FirebaseModule } from './firebase/firebase.module';
+import { FirebaseModule } from './features/firebase/firebase.module';
 import * as admin from 'firebase-admin';
 
 @Module({
