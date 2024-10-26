@@ -6,7 +6,7 @@ import { Response } from 'express';
 export class DeleteImageController {
   constructor(private readonly deleteImageHandler: DeleteImageHandler) {}
 
-  @Delete('delete-image')
+  @Delete('delete')
   async handle(
     @Res() res: Response,
     @Body() { publicUrl }: { publicUrl: string },

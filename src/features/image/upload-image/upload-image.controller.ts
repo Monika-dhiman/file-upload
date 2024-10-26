@@ -14,7 +14,7 @@ import { Response } from 'express';
 export class UploadImageController {
   constructor(private readonly uploadImageHandler: UploadImageHandler) {}
 
-  @Post('upload-image')
+  @Post('/upload')
   @UseInterceptors(FileInterceptor('file'))
   async handle(@UploadedFile() file, @Res() res: Response) {
     try {
